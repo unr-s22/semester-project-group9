@@ -36,7 +36,7 @@ void setup() {
   lcd.begin(16, 2);
   lcd.print("WATER LEVEL: ");
   stepper.setSpeed(30);
-  pinMode(ButtonPin, INPUT);
+  DDRH |= B00100000;
   Serial.begin(9600);
 }
 
@@ -57,11 +57,10 @@ void loop()
   }
   else
   {
-    Serial.print("In Water\n");
     lcd.print("In Water            ");
   }
 
-  buttonState = digitalRead(ButtonPin);
+  buttonState = (PINH & B00100000) >> 5;
 
   if (buttonState == HIGH)
   {
